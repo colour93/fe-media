@@ -1,0 +1,12 @@
+# node
+node_modules/
+
+# ide & editor
+.vscode/
+.idea/
+
+# dist
+dist/
+
+# data
+data/
