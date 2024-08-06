@@ -24,7 +24,9 @@ export const getVideoList: IPaginationDataFunction<Video> = async ({ page, pageS
       }
     ],
     relations: {
-      tags: relations
+      tags: {
+        cate: relations
+      }
     },
     skip: ((page - 1) * pageSize) || 0,
     take: pageSize
