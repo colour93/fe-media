@@ -6,10 +6,11 @@ import _ from "lodash";
 import { getVideosDataByNids } from "../video";
 import { IPaginationDataFunction } from "../../typings/service";
 
-export const getTagList: IPaginationDataFunction<Tag> = async ({ page, pageSize, relations = true }) => {
+export const getTagList: IPaginationDataFunction<Tag> = async ({ page, pageSize, relations = true, where }) => {
   const tagRepository = dataSource.getRepository(Tag);
 
   const [data, total] = await tagRepository.findAndCount({
+    where,
     relations: { videos: relations, cate: true },
     skip: ((page - 1) * pageSize) || 0,
     take: pageSize

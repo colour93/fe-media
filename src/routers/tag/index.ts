@@ -9,13 +9,19 @@ const tagRouter = Router();
 tagRouter.use('/cate', tagCateRouter);
 
 tagRouter.get('/', async (req, res) => {
-  const { page: rawPage, pageSize: rawPageSize } = req.query;
+  const { page: rawPage, pageSize: rawPageSize, tagCateCid: rawTagCateCid } = req.query;
   const page = parseInt((rawPage ?? 1).toString());
   const pageSize = parseInt((rawPageSize ?? 20).toString());
+  const tagCateCid = _.isUndefined(rawTagCateCid) ? undefined : parseInt(rawTagCateCid.toString());
 
   const { data, ...rest } = await getTagList({
     page: _.isNumber(page) ? page : undefined,
-    pageSize: _.isNumber(pageSize) ? pageSize : undefined
+    pageSize: _.isNumber(pageSize) ? pageSize : undefined,
+    where: _.isNumber(tagCateCid) ? {
+      cate: {
+        cid: tagCateCid
+      }
+    } : undefined
   });
   res.send({
     code: 200,

@@ -1,3 +1,5 @@
+import { FindOptionsWhere } from "typeorm";
+
 export interface IPaginationData<T> {
   data: T[];
   total: number;
@@ -6,9 +8,10 @@ export interface IPaginationData<T> {
   totalPages?: number;
 }
 
-export interface IPaginationDataFunctionProps {
+export interface IPaginationDataFunctionProps<T> {
   page?: number;
   pageSize?: number;
   relations?: boolean;
+  where?: FindOptionsWhere<T>[] | FindOptionsWhere<T>
 }
-export type IPaginationDataFunction<T> = (props: IPaginationDataFunctionProps) => Promise<IPaginationData<T>>
+export type IPaginationDataFunction<T> = (props: IPaginationDataFunctionProps<T>) => Promise<IPaginationData<T>>
